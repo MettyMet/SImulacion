@@ -8,6 +8,7 @@ Simulación interactiva de brotes epidémicos con interfaz gráfica en **Python/
 
 - Python **≥ 3.10**
 - Tkinter (incluido en la instalación estándar de Python)
+- openpyxl (se instala automáticamente — ver Instalación)
 
 ---
 
@@ -19,6 +20,7 @@ cd Simulacion
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .
+#  ↑ instala automáticamente openpyxl desde pyproject.toml
 ```
 
 ---
@@ -28,9 +30,6 @@ pip install -e .
 ```bash
 # Iniciar simulación
 python simular.py
-
-# Ver analíticas de simulaciones anteriores
-python analiticas.py
 
 # Ejecutar pruebas unitarias
 python -m pytest pruebas/
@@ -55,13 +54,12 @@ Simulacion/
 │   │   ├── aplicacion.py           ← Ventana principal, layouts, barras, overlays
 │   │   ├── componentes.py          ← Widgets reutilizables (Slider, Selector, Botonera)
 │   │   └── grafico.py              ← Gráfico de evolución temporal
-│   └── almacenamiento/
-│       └── manejador_csv.py        ← Guardado y carga de resultados en CSV
+│       └── almacenamiento/
+│       └── manejador_excel.py       ← Guardado de resultados en Excel
 ├── pruebas/                        ← Tests unitarios con pytest
 │   ├── prueba_individuo.py
 │   ├── prueba_motor.py
 │   └── prueba_espacial.py
-└── resultados.csv                  ← Generado automáticamente al finalizar
 ```
 
 ---
@@ -74,7 +72,7 @@ Simulacion/
 4. Durante la ejecución se puede:
    - **⏸ PAUSAR / ▶ REANUDAR** la simulación
    - **⏹ FINALIZAR** anticipadamente (visible solo cuando está pausada)
-5. Al terminar (por extinción, límite de días o finalización manual) aparece un diálogo con tabla comparativa Estado / Inicial / Final y se guardan los resultados en `resultados.csv`
+5. Al terminar (por extinción, límite de días o finalización manual) aparece una superposición con tabla comparativa Estado / Inicial / Final y un botón **💾 GUARDAR** para exportar a Excel
 
 ---
 
@@ -140,13 +138,14 @@ También está disponible la opción **Personalizada** para configurar manualmen
 
 ## Persistencia de datos
 
-Al finalizar cada simulación se guarda una fila en `resultados.csv` con:
+Al finalizar cada simulación se puede exportar un archivo `.xlsx` con:
 
 - Enfermedad seleccionada y parámetros usados
-- Conteo final de Sanos, Infectados, Inmunes y Muertos
+- Conteo inicial y final de Sanos, Infectados, Inmunes y Muertos
 - Días transcurridos
+- Población total inicial vs. vivos finales
 
-El comando `python analiticas.py` abre una ventana que lee este archivo y muestra gráficos de barras con los promedios de supervivencia agrupados por configuración.
+Al presionar **💾 GUARDAR** en la superposición de resultados se abre un diálogo para elegir el nombre del archivo (se guarda en el directorio de trabajo).
 
 ---
 
