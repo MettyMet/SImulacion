@@ -1,8 +1,9 @@
 [project]
 name = "simulacion-epidemia"
-version = "0.2.0"
+version = "0.3.0"
 description = "Simulación de propagación de epidemias con interfaz gráfica"
 requires-python = ">=3.10"
+dependencies = ["openpyxl"]
 
 [tool.pytest.ini_options]
 testpaths = ["pruebas"]

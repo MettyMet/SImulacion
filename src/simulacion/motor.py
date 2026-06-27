@@ -1,6 +1,6 @@
 import random
 
-from src.configuracion import Estado, ConfigSimulacion, ANCHO_GRAFICO
+from src.configuracion import Estado, ConfigSimulacion, MAX_HISTORIAL
 from src.modelos.individuo import Individuo
 from src.simulacion.espacial import HashEspacial
 
@@ -121,7 +121,7 @@ class MotorSimulacion:
         stats = dict(self._conteo)
         for estado in self.historial:
             self.historial[estado].append(stats[estado])
-            if len(self.historial[estado]) > ANCHO_GRAFICO:
+            if len(self.historial[estado]) > MAX_HISTORIAL:
                 self.historial[estado].pop(0)
 
         return stats

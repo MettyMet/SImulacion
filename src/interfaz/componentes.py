@@ -59,7 +59,8 @@ class SliderEtiquetado(ttk.Frame):
         if descripcion:
             ttk.Label(
                 self, text=descripcion,
-                font=("Segoe UI", 8), foreground="#57606F",
+                font=("Segoe UI", 9), foreground="#8A95A5",
+                wraplength=220,
             ).pack(anchor="w", pady=(2, 0))
 
     def configurar_rango(self, max_val: float) -> None:
